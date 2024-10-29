@@ -12,8 +12,8 @@ namespace Unity.VisualScripting.Generated.PropertyProviders
 {
 	
 	
-	[global::Unity.VisualScripting.SerializedPropertyProviderAttribute(typeof(global::TMPro.TMP_GlyphPairAdjustmentRecord))]
-	public class PropertyProvider_TMPro_TMP_GlyphPairAdjustmentRecord : Unity.VisualScripting.SerializedPropertyProvider<TMPro.TMP_GlyphPairAdjustmentRecord>
+	[global::Unity.VisualScripting.SerializedPropertyProviderAttribute(typeof(global::UnityEngine.Rendering.Universal.UniversalRenderPipelineRuntimeTextures))]
+	public class PropertyProvider_UnityEngine_Rendering_Universal_UniversalRenderPipelineRuntimeTextures : Unity.VisualScripting.SerializedPropertyProvider<UnityEngine.Rendering.Universal.UniversalRenderPipelineRuntimeTextures>
 	{
 	}
 }
