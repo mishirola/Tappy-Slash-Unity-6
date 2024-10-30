@@ -42,7 +42,7 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
                     ""id"": ""3dd37080-382e-4f90-be2e-830fd30959a0"",
                     ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": true
                 }
             ],
@@ -51,7 +51,7 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""b96e8ff2-8b0d-4698-bc1f-9e5870555350"",
                     ""path"": ""<Touchscreen>/primaryTouch/position"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": ""Editor (PC) Controls"",
                     ""action"": ""Press"",
@@ -136,34 +136,6 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
-        },
-        {
-            ""name"": ""Game Controls"",
-            ""id"": ""d1c061d0-352c-4212-9baa-899740e19415"",
-            ""actions"": [
-                {
-                    ""name"": ""Click"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""7469828d-9423-42fb-9517-c23289b743cd"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""aa97c6d5-0a4b-463c-9e40-0cf92b5ccfc1"",
-                    ""path"": ""<Touchscreen>/Press"",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""processors"": """",
-                    ""groups"": ""Game Controls"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -182,17 +154,6 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Game Controls"",
-            ""bindingGroup"": ""Game Controls"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Touchscreen>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
         }
     ]
 }");
@@ -200,15 +161,11 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
         m_MouseControls = asset.FindActionMap("Mouse Controls", throwIfNotFound: true);
         m_MouseControls_Hold = m_MouseControls.FindAction("Hold", throwIfNotFound: true);
         m_MouseControls_Press = m_MouseControls.FindAction("Press", throwIfNotFound: true);
-        // Game Controls
-        m_GameControls = asset.FindActionMap("Game Controls", throwIfNotFound: true);
-        m_GameControls_Click = m_GameControls.FindAction("Click", throwIfNotFound: true);
     }
 
     ~@IA_Controls()
     {
         UnityEngine.Debug.Assert(!m_MouseControls.enabled, "This will cause a leak and performance issues, IA_Controls.MouseControls.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_GameControls.enabled, "This will cause a leak and performance issues, IA_Controls.GameControls.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -320,52 +277,6 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
         }
     }
     public MouseControlsActions @MouseControls => new MouseControlsActions(this);
-
-    // Game Controls
-    private readonly InputActionMap m_GameControls;
-    private List<IGameControlsActions> m_GameControlsActionsCallbackInterfaces = new List<IGameControlsActions>();
-    private readonly InputAction m_GameControls_Click;
-    public struct GameControlsActions
-    {
-        private @IA_Controls m_Wrapper;
-        public GameControlsActions(@IA_Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Click => m_Wrapper.m_GameControls_Click;
-        public InputActionMap Get() { return m_Wrapper.m_GameControls; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GameControlsActions set) { return set.Get(); }
-        public void AddCallbacks(IGameControlsActions instance)
-        {
-            if (instance == null || m_Wrapper.m_GameControlsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GameControlsActionsCallbackInterfaces.Add(instance);
-            @Click.started += instance.OnClick;
-            @Click.performed += instance.OnClick;
-            @Click.canceled += instance.OnClick;
-        }
-
-        private void UnregisterCallbacks(IGameControlsActions instance)
-        {
-            @Click.started -= instance.OnClick;
-            @Click.performed -= instance.OnClick;
-            @Click.canceled -= instance.OnClick;
-        }
-
-        public void RemoveCallbacks(IGameControlsActions instance)
-        {
-            if (m_Wrapper.m_GameControlsActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IGameControlsActions instance)
-        {
-            foreach (var item in m_Wrapper.m_GameControlsActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_GameControlsActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public GameControlsActions @GameControls => new GameControlsActions(this);
     private int m_EditorPCControlsSchemeIndex = -1;
     public InputControlScheme EditorPCControlsScheme
     {
@@ -375,22 +286,9 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_EditorPCControlsSchemeIndex];
         }
     }
-    private int m_GameControlsSchemeIndex = -1;
-    public InputControlScheme GameControlsScheme
-    {
-        get
-        {
-            if (m_GameControlsSchemeIndex == -1) m_GameControlsSchemeIndex = asset.FindControlSchemeIndex("Game Controls");
-            return asset.controlSchemes[m_GameControlsSchemeIndex];
-        }
-    }
     public interface IMouseControlsActions
     {
         void OnHold(InputAction.CallbackContext context);
         void OnPress(InputAction.CallbackContext context);
-    }
-    public interface IGameControlsActions
-    {
-        void OnClick(InputAction.CallbackContext context);
     }
 }
