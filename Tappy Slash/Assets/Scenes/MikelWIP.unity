@@ -43551,11 +43551,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1188447956098349868, guid: 0f97ee457e38e2045ac084fa5c7501b3, type: 3}
       propertyPath: m_DefaultActionMap
-      value: 0535c12b-9e02-489a-bdbf-3278db7aa5a4
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1188447956098349868, guid: 0f97ee457e38e2045ac084fa5c7501b3, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Editor (PC) Controls
+      value: Touch
       objectReference: {fileID: 0}
     - target: {fileID: 3749426335295417217, guid: 0f97ee457e38e2045ac084fa5c7501b3, type: 3}
       propertyPath: m_IsActive
