@@ -94,7 +94,7 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c41a64f9-806e-4d2f-a88b-096c468239cf"",
-                    ""path"": ""<Touchscreen>/touch*/Press"",
+                    ""path"": ""<Touchscreen>/touch1/press"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Touch"",
