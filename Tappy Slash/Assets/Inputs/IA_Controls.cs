@@ -29,9 +29,9 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Look"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""e79fbc76-ed71-4eba-883a-f6e4276e96a5"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
                     ""interactions"": ""Tap"",
                     ""initialStateCheck"": true
@@ -92,15 +92,37 @@ public partial class @IA_Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""c41a64f9-806e-4d2f-a88b-096c468239cf"",
+                    ""name"": ""One Modifier"",
+                    ""id"": ""009ecc53-2729-44dd-9d12-446ccf93b77b"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""545f9cc2-5368-4064-bb14-83ee1485c963"",
                     ""path"": ""<Touchscreen>/touch1/press"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Touch"",
+                    ""groups"": """",
                     ""action"": ""Look"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""437f7f14-52f3-4ebc-b006-806ddbb2de62"",
+                    ""path"": ""<Touchscreen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
